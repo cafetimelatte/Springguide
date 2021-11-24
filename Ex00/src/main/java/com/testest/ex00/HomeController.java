@@ -35,8 +35,27 @@ public class HomeController {
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		int age = Integer.parseInt(request.getParameter("age"));
-		memberService.registerMember(new MemberDto(id,name,age));
-		request.setAttribute("member", new MemberDto(id,name,age));
+//		memberService.registerMember(new MemberDto(id,name,age));
+//		request.setAttribute("member", new MemberDto(id,name,age));
 		return "student/result";
+	}
+	
+	@RequestMapping("login")
+	public String login() {
+		
+		return "home";
+	}
+	
+	@RequestMapping("join")
+	public String join(HttpServletRequest request) {
+		String userEmail = request.getParameter("email");
+		String lastEmail = request.getParameter("last_email");
+		String userpw = request.getParameter("pw");
+		String userNickname = request.getParameter("nick");
+		String username = request.getParameter("name");
+		String birth = request.getParameter("brith");
+		String addr1  = request.getParameter("addr1"), addr2 = request.getParameter("addr2"), addr3 = request.getParameter("addr3");
+		System.out.println(userEmail + lastEmail + userpw + userNickname + username + birth + addr1 + addr2 + addr3);
+		return "join";
 	}
 }
