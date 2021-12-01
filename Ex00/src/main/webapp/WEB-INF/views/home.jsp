@@ -13,5 +13,13 @@
 		<input type="text" name="age" id="age" placeholder="나이"/><br/>
 		<input type="submit" value="완료"/>
 	</form>
+	
+	<c:forEach items="${findList}" var="findList">
+	${findList.m_id}<br/>
+	${findList.m_nick}
+	</c:forEach>
+
+	
+	
 </body>
 </html>

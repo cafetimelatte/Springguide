@@ -2,6 +2,7 @@ package com.test.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,35 @@ public class memberDaoImpl implements memberDao {
 		return sqlSession.update("com.test.mapper.memberMapper.updateMember", id);
 	}
 
+	@Override
+	public int login(String email, String pw) {
+		int state = 0;
+		String pwd = null;
+		pwd = sqlSession.selectOne("com.test.mapper.memberMapper.login", email);
+		if(pwd != null) {
+			state = pwd.equals(pw) ? 1 : 0;
+			return state;
+		}else {
+			state = -2;
+			return state;
+		}
+		
+	}
+
+	@Override
+	public List<MemberDto> userInfo(String userEmail) {
+		return sqlSession.selectList("com.test.mapper.memberMapper.userInfo", userEmail);
+	}
+
+	@Override
+	public List<MemberDto> findId(String userId, String userNick) {
+		Map<String, String>find = new HashMap<String, String>();
+		find.put("userid", userId);
+		find.put("usernick", userNick);
+		return sqlSession.selectList("com.test.mapper.memberMapper.findId",find);
+	}
+
+
 
 }
+

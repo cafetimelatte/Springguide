@@ -1,6 +1,7 @@
 package com.test.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.test.dto.MemberDto;
 
@@ -10,4 +11,8 @@ public interface memberDao {
 	List<MemberDto> showAll();
 	int delete(String id);
 	int update(String id);
+	int login(String email, String pw);
+	List<MemberDto> userInfo(String userEmail);
+	List<MemberDto> findId(String userId, String userNick);
+
 }

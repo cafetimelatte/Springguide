@@ -7,8 +7,12 @@
 		select count(*) from member where id=#{id} and pw=#{pw} 
 	</select>
 	
-	<insert id="insertMember">
-		insert into student(id, name, age) values (#{id}, #{name}, #{age}) 
+	<select id="login" parameterType="String" resultType="String">
+		select m_pw from member where m_id = #{email}
+	</select>
+	
+	<insert id="insertMember" parameterType="com.test.dto.MemberDto">
+		insert into member values(#{m_id}, #{m_pw}, #{nick},TO_DATE(#{birth},'yyyy-mm-dd'), #{phone}, #{addr1}, #{addr2}, #{addr3}, sysdate)
 	</insert>
 	
 	<select resultType="com.test.dto.MemberDto" id="showAll">
@@ -22,4 +26,16 @@
 	<update id="updateMember">
 		update member set id = #{cid}, pw = #{cpw}, name = #{cname} where id = #{id}'; 
 	</update>
+	
+	<select id="userInfo" parameterType="String" resultType="com.test.dto.MemberDto">
+		select m_id, m_pw, m_nick, to_number(to_char(m_birth,'yyyymmdd')), m_phone, m_add1, m_add2, m_add3, m_regidate
+		from member
+		where m_id = #{userEmail}
+	</select>
+	
+	<select id="findId" parameterType="HashMap" resultType="com.test.dto.MemberDto">
+		select m_id, m_pw, m_nick, to_number(to_char(m_birth,'yyyymmdd')), m_phone, m_add1, m_add2, m_add3, m_regidate
+		from member
+		where m_id = #{userid} and m_nick = #{usernick}
+	</select>
 </mapper>
